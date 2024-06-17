@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.Events;
+
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
+    public UnityEvent onMuere;
 
     public GridSlot[,] grilla;
     
@@ -26,7 +29,7 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = 0; i < alto; i++)
+        for (int i = alto-1; i >= 0; i--)
         {
             for (int j = 0; j < ancho; j++)
             {
@@ -155,11 +158,18 @@ public class GridArenaManager : MonoBehaviour
     public void Perder()
     {
         AbrirPantallaFin();
+       
     }
 
     public void AbrirPantallaFin()
     {
+       OnMuere();
+    }
 
+    void OnMuere()
+    {
+        print("¡Y MURIO!");
+        onMuere.Invoke();
     }
 }
 
