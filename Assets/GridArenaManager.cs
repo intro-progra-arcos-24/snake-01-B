@@ -11,7 +11,7 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
-
+    public GameObject canva;
     public GridSlot[,] grilla;
     
     // Start is called before the first frame update
@@ -159,7 +159,7 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-
+        canva.SetActive(true);
     }
 }
 
