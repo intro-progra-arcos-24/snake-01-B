@@ -28,7 +28,7 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = 0; i < alto; i++)
+        for (int i = alto-1; i <= 0; i--)
         {
             for (int j = 0; j < ancho; j++)
             {
