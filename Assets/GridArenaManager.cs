@@ -90,7 +90,7 @@ public class GridArenaManager : MonoBehaviour
         {
             for (int j = 0; j < ancho; j++)
             {
-                if (j == 0)
+                if (j == 0 || j== (ancho-1) || i==0 || i==(alto-1))
                 {
                     GridSlot slot = grilla[j, i];
 
