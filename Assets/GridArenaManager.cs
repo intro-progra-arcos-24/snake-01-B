@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GridArenaManager : MonoBehaviour
 {
-
     public int ancho;
     public int alto;
     public Wall wallPrefab;
@@ -47,7 +47,7 @@ public class GridArenaManager : MonoBehaviour
 
     private void CrearPersonaje()
     {
-
+        //Detectar cual es el espacio en donde debemos inicializar al player
         float puntoMedioX = (ancho / 2);
         float puntoMedioY = (alto / 2);
 
@@ -58,6 +58,8 @@ public class GridArenaManager : MonoBehaviour
 
         GridSlot slot = grilla[coordenadaCentro.x, coordenadaCentro.y];
 
+
+        //Instanciar el player por prefab
         Snake itemEnGrilla = Instantiate<Snake>(
             SnakePrefab,
             new Vector3(slot.posicionMundo.x, slot.posicionMundo.y, 0),
@@ -67,20 +69,64 @@ public class GridArenaManager : MonoBehaviour
         slot.itemEnSlot = itemEnGrilla;
         itemEnGrilla.currentGridSlot = slot;
         itemEnGrilla.gridArenaManager = this;
-
     }
 
     private void CrearComida()
     {
-        //throw new NotImplementedException();
+        Food itemComida = Instantiate<Food>(
+            FoodPrefab,
+            new Vector3(0, 0, 0),
+            Quaternion.identity
+            );
+        itemComida.gridArenaManager = this;
+        itemComida.Reposicionar();
     }
 
     public bool CambiarItemEnGrilla(Vector2Int posGrilla, GridItem item)
     {
         var gridSlot = grilla[posGrilla.x, posGrilla.y];
+        var preGridSlot = item.currentGridSlot;
         gridSlot.itemEnSlot = item;
         item.currentGridSlot = gridSlot;
+        if(preGridSlot!=null)
+            preGridSlot.itemEnSlot = null;
+        
         return true;
+    }
+
+    public GridSlot ObtenerGrillaPorPosicion(Vector2Int posGrilla)
+    {
+        GridSlot gridSlot = null;
+        try
+        {
+            gridSlot = grilla[posGrilla.x, posGrilla.y];
+        }
+        catch
+        {
+            return null;
+        } 
+        return gridSlot;
+    }
+
+    public GridSlot ObtenerSlotVacioRandom()
+    {
+        GridSlot slot = null;
+        
+        List<GridSlot> posicionesVacias = new List<GridSlot>();
+        for (int i = 0; i < alto; i++)
+        {
+            for (int j = 0; j < ancho; j++)
+            {
+                GridSlot currGridSlot = grilla[j, i];
+                if(currGridSlot.itemEnSlot == null)
+                {
+                    posicionesVacias.Add(currGridSlot);
+                }
+            }
+        }
+        int pos = Random.Range(0, posicionesVacias.Count);
+
+        return posicionesVacias[pos];
     }
 
 
@@ -104,6 +150,16 @@ public class GridArenaManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Perder()
+    {
+        AbrirPantallaFin();
+    }
+
+    public void AbrirPantallaFin()
+    {
+
     }
 }
 

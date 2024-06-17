@@ -44,12 +44,13 @@ public class Snake : GridItem
 
     private void UpdateSnake()
     {
+        // Si no ha pasado tiempo suficiente no hacer nada
         if (Time.time < nextUpdate)
         {
             return;
         }
-        nextUpdate = Time.time + (1f / (speed * speedMultiplier));
 
+        nextUpdate = Time.time + (1f / (speed * speedMultiplier));
         if (input != Vector2Int.zero)
         {
             direction = input;
@@ -58,12 +59,26 @@ public class Snake : GridItem
         Vector2Int posGrilla = currentGridSlot.indiceGrilla;
         posGrilla += direction;
 
-        gridArenaManager.CambiarItemEnGrilla(posGrilla,this);
+        GridSlot item = gridArenaManager.ObtenerGrillaPorPosicion(posGrilla);
 
-        // Move the snake in the direction it is facing
-        float x = transform.position.x + direction.x;
-        float y = transform.position.y + direction.y;
-        transform.position = new Vector2(x, y);
+        if (item.itemEnSlot == null)
+        {
+            gridArenaManager.CambiarItemEnGrilla(posGrilla, this);
+            // Move the snake in the direction it is facing
+            float x = transform.position.x + direction.x;
+            float y = transform.position.y + direction.y;
+            transform.position = new Vector2(x, y);
+        }
+        else if(item.itemEnSlot is Wall)
+        {
+            Debug.Log("Wall");
+            gridArenaManager.Perder();
+        }
+        else if(item.itemEnSlot is Food)
+        {
+            Debug.Log("Comida");
+            //food.Reposicionar();
+        }
     }
 
 }
