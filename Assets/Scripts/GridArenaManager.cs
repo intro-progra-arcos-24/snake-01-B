@@ -12,6 +12,8 @@ public class GridArenaManager : MonoBehaviour
     public Snake SnakePrefab;
     public Food FoodPrefab;
 
+    public GameObject can;
+
     public GridSlot[,] grilla;
     
     // Start is called before the first frame update
@@ -159,6 +161,8 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
+
+        can.SetActive(true);
 
     }
 }
