@@ -11,12 +11,15 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
+    public Canvas canvas;
 
     public GridSlot[,] grilla;
     
     // Start is called before the first frame update
     void Start()
     {
+        canvas.gameObject.SetActive(false);
+
         grilla = new GridSlot[ancho, alto];
 
         float puntoPartidaX = transform.position.x - (ancho/2);
@@ -26,7 +29,7 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = 0; i < alto; i++)
+        for (int i = alto - 1; i >= 0; i--)
         {
             for (int j = 0; j < ancho; j++)
             {
@@ -40,9 +43,9 @@ public class GridArenaManager : MonoBehaviour
             posicionActualEnGrilla.x = puntoPartidaX;
             posicionActualEnGrilla.y -= 1;
         }
-        CrearMurallas();
         CrearComida();
         CrearPersonaje();
+        CrearMurallas();
     }
 
     private void CrearPersonaje()
@@ -109,9 +112,7 @@ public class GridArenaManager : MonoBehaviour
     }
 
     public GridSlot ObtenerSlotVacioRandom()
-    {
-        GridSlot slot = null;
-        
+    {        
         List<GridSlot> posicionesVacias = new List<GridSlot>();
         for (int i = 0; i < alto; i++)
         {
@@ -159,7 +160,8 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-
+        if(canvas != null)
+            canvas.gameObject.SetActive(true);
     }
 }
 
@@ -168,5 +170,4 @@ public class GridSlot
     public Vector2Int indiceGrilla;
     public Vector2 posicionMundo;
     public GridItem itemEnSlot;
-
 }

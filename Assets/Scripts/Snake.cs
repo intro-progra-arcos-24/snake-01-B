@@ -71,13 +71,12 @@ public class Snake : GridItem
         }
         else if(item.itemEnSlot is Wall)
         {
-            Debug.Log("Wall");
             gridArenaManager.Perder();
         }
         else if(item.itemEnSlot is Food)
         {
+            item.itemEnSlot.GetComponent<Food>().Reposicionar();
             Debug.Log("Comida");
-            //food.Reposicionar();
         }
     }
 

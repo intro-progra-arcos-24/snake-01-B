@@ -99,5 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridArenaManager: {fileID: 0}
   direction: {x: 1, y: 0}
-  speed: 20
+  speed: 10
   speedMultiplier: 1
