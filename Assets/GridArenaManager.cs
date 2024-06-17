@@ -11,6 +11,7 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
+    public GameObject canvas;
 
     public GridSlot[,] grilla;
     
@@ -159,7 +160,7 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-
+        canvas.SetActive (true);
     }
 }
 
