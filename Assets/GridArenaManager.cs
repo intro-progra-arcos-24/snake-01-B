@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
+    public Canvas perdiste;
 
     public GridSlot[,] grilla;
     
@@ -159,7 +161,12 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-
+    perdiste.gameObject.SetActive(true);
+    }
+    public void Restart()
+    {
+    Time.timeScale = 1f; // Asegura que el tiempo esté corriendo normalmente
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
     }
 }
 
