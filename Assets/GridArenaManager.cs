@@ -11,6 +11,7 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
+    public GameObject gameOverScreen;
 
     public GridSlot[,] grilla;
     
@@ -26,7 +27,7 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = 0; i < alto; i++)
+        for (int i = alto-1; i >= 0; i--)
         {
             for (int j = 0; j < ancho; j++)
             {
@@ -79,7 +80,7 @@ public class GridArenaManager : MonoBehaviour
             Quaternion.identity
             );
         itemComida.gridArenaManager = this;
-        itemComida.Reposicionar();
+        //itemComida.Reposicionar();
     }
 
     public bool CambiarItemEnGrilla(Vector2Int posGrilla, GridItem item)
@@ -159,7 +160,7 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-
+        gameOverScreen.SetActive(true);
     }
 }
 
