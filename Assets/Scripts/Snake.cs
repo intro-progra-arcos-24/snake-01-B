@@ -74,7 +74,7 @@ public class Snake : GridItem
             Debug.Log("Wall");
             gridArenaManager.Perder();
         }
-        else if(item.itemEnSlot is Food)
+        if(item.itemEnSlot is Food)
         {
             Debug.Log("Comida");
             //food.Reposicionar();
