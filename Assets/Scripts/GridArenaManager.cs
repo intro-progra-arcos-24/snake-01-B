@@ -11,9 +11,7 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
-
     public GameObject can;
-
     public GridSlot[,] grilla;
     
     // Start is called before the first frame update
@@ -28,14 +26,14 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = alto-1; i <= 0; i--)
+        for (int y = 0; y < alto; y++)
         {
-            for (int j = 0; j < ancho; j++)
+            for (int x = 0; x < ancho; x++)
             {
                 GridSlot slotEnGrilla = new GridSlot();
-                slotEnGrilla.indiceGrilla = new Vector2Int(j,i);
+                slotEnGrilla.indiceGrilla = new Vector2Int(x,y);
                 slotEnGrilla.posicionMundo = new Vector2(posicionActualEnGrilla.x, posicionActualEnGrilla.y);
-                grilla[j, i] = slotEnGrilla;
+                grilla[x, y] = slotEnGrilla;
 
                 posicionActualEnGrilla.x += 1;
             }
@@ -115,11 +113,11 @@ public class GridArenaManager : MonoBehaviour
         GridSlot slot = null;
         
         List<GridSlot> posicionesVacias = new List<GridSlot>();
-        for (int i = 0; i < alto; i++)
+        for (int y = 0; y < alto; y++)
         {
-            for (int j = 0; j < ancho; j++)
+            for (int x = 0; x < ancho; x++)
             {
-                GridSlot currGridSlot = grilla[j, i];
+                GridSlot currGridSlot = grilla[x, y];
                 if(currGridSlot.itemEnSlot == null)
                 {
                     posicionesVacias.Add(currGridSlot);
@@ -134,16 +132,15 @@ public class GridArenaManager : MonoBehaviour
 
     private void CrearMurallas()
     {
-        for (int i = 0; i < alto; i++)
+        for (int y = 0; y < alto; y++)
         {
-            for (int j = 0; j < ancho; j++)
+            for (int x = 0; x < ancho; x++)
             {
-                if (j == 0 || j== (ancho-1) || i==0 || i==(alto-1))
+                if (x == 0 || x== (ancho-1) || y==0 || y==(alto-1))
                 {
-                    GridSlot slot = grilla[j, i];
+                    GridSlot slot = grilla[x, y];
 
-                    GridItem itemEnGrilla = Instantiate<GridItem>(
-                        wallPrefab,
+                    GridItem itemEnGrilla = Instantiate<GridItem>(wallPrefab,
                         new Vector3(slot.posicionMundo.x, slot.posicionMundo.y, 0),
                         Quaternion.identity
                         );
