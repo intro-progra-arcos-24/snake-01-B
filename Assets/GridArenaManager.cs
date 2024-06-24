@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
+
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -12,9 +15,12 @@ public class GridArenaManager : MonoBehaviour
     public Snake SnakePrefab;
     public Food FoodPrefab;
     public GameObject pantallaMuerte;
+    public TextMeshProUGUI scoreText;
 
     public GridSlot[,] grilla;
     
+    int score = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -162,6 +168,12 @@ public class GridArenaManager : MonoBehaviour
     public void AbrirPantallaFin()
     {
         pantallaMuerte.gameObject.SetActive(true);
+    }
+
+    public void Score(int modificar)
+    {
+        score += modificar;
+        scoreText.text = "Comida: " + score;
     }
 }
 
