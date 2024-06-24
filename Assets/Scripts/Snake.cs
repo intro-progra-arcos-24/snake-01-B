@@ -13,35 +13,42 @@ public class Snake : GridItem
     private float nextUpdate;
     private SnakeSegment aMover;
 
-    
-
-    private void Start()
-    {
-        
-    }
+    private bool canMove = true;
 
     private void Update()
     {
-        // Only allow turning up or down while moving in the x-axis
-        if (direction.x != 0f)
+        if(canMove)
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-                input = Vector2Int.up;
-            } else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
-                input = Vector2Int.down;
+            // Only allow turning up or down while moving in the x-axis
+            if (direction.x != 0f)
+            {
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    input = Vector2Int.up;
+                }
+                else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    input = Vector2Int.down;
+                }
             }
-        }
-        // Only allow turning left or right while moving in the y-axis
-        else if (direction.y != 0f)
-        {
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
-                input = Vector2Int.right;
-            } else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
-                input = Vector2Int.left;
+            // Only allow turning left or right while moving in the y-axis
+            else if (direction.y != 0f)
+            {
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    input = Vector2Int.right;
+                }
+                else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    input = Vector2Int.left;
+                }
             }
+
+            
         }
 
         UpdateSnake();
+
     }
 
     private void UpdateSnake()
@@ -92,14 +99,15 @@ public class Snake : GridItem
             (item.itemEnSlot is SnakeSegment)
             )
         {
-            Debug.Log("Hazard");
+            Debug.Log("Muerte");
             gridArenaManager.Perder();
+            canMove = false;
         }
         else if(item.itemEnSlot is Food food)
         {
             Debug.Log("Comida");
             //spawnear un segmento de la cola en la posicion actual
-            //NuevoSegmento(currentGridSlot.indiceGrilla);
+            NuevoSegmento(currentGridSlot.indiceGrilla);
             
             //mover al player a la posicion de la comida
             gridArenaManager.CambiarItemEnGrilla(posGrilla, this);
@@ -107,8 +115,17 @@ public class Snake : GridItem
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
 
-            //gridArenaManager.Score(1);
+            gridArenaManager.Score(1);
             food.Reposicionar();
+
+            //Reproducir sonido al comer
+            AudioSource audioEat = GetComponent<AudioSource>();
+            audioEat.Play();
+
+            if(audioEat != null)
+            {
+                Debug.Log("audioPlay");
+            }
         }
         else if (item.itemEnSlot is SnakeSegment segment)
         {
