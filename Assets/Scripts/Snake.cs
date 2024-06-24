@@ -14,7 +14,6 @@ public class Snake : GridItem
     private float nextUpdate;
     private SnakeSegment aMover;
 
-    
 
     private void Start()
     {

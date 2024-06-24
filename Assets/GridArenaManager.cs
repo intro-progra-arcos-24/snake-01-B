@@ -15,6 +15,8 @@ public class GridArenaManager : MonoBehaviour
     public SnakeSegment SegmentoPrefab;
     public GameObject gameOverScreen;
     public TextMeshProUGUI textoComida;
+    public AudioSource Comer;
+
 
     public GridSlot[,] grilla;
 
@@ -172,6 +174,8 @@ public class GridArenaManager : MonoBehaviour
     {
         score += modificar;
         textoComida.text = "Puntos: " + score;
+        Comer.Play();
+
     }
 }   
 
