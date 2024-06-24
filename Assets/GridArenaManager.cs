@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
+
 
 
 public class GridArenaManager : MonoBehaviour
@@ -14,6 +19,8 @@ public class GridArenaManager : MonoBehaviour
     public Snake SnakePrefab;
     public Food FoodPrefab;
     public UnityEvent onMuere;
+    public TextMeshProUGUI ScoreComida;
+    public int Scorecomida;
 
     public GridSlot[,] grilla;
     
@@ -170,8 +177,18 @@ public class GridArenaManager : MonoBehaviour
     {
         print("¡Y MURIO!");
         onMuere.Invoke();
+        
+
     }
+
+    public string Escena;
+    public void CargarEscena()
+    {
+        SceneManager.LoadScene(Escena);
+    }
+
 }
+
 
 public class GridSlot
 {
@@ -180,3 +197,4 @@ public class GridSlot
     public GridItem itemEnSlot;
 
 }
+

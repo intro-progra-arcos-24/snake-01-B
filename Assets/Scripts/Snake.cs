@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Snake : GridItem
 {
@@ -10,9 +11,8 @@ public class Snake : GridItem
 
     private Vector2Int input;
     private float nextUpdate;
-
     
-
+    public AudioSource comida;
     private void Start()
     {
         
@@ -68,17 +68,26 @@ public class Snake : GridItem
             float x = transform.position.x + direction.x;
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
+
         }
         else if(item.itemEnSlot is Wall)
         {
             Debug.Log("Wall");
             gridArenaManager.Perder();
+            speed = 0;
+
         }
-        else if(item.itemEnSlot is Food)
+        else if(item.itemEnSlot is Food food)
         {
             Debug.Log("Comida");
+            comida.Play();
             //food.Reposicionar();
+            gridArenaManager.Scorecomida += 1;
+            gridArenaManager.ScoreComida.text = "Score :" + gridArenaManager.Scorecomida;
+            
         }
+
+        
     }
 
 }
