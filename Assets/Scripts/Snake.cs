@@ -106,7 +106,7 @@ public class Snake : GridItem
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
 
-            //gridArenaManager.Score(1);
+            gridArenaManager.Score(1);
             food.Reposicionar();
         }
         else if (item.itemEnSlot is SnakeSegment segment)

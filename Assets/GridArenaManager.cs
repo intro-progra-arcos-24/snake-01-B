@@ -171,9 +171,9 @@ public class GridArenaManager : MonoBehaviour
     public void Score(int modificar)
     {
         score += modificar;
-        textoComida.text = "Comida: " + score;
+        textoComida.text = "Puntos: " + score;
     }
-}
+}   
 
 public class GridSlot
 {
