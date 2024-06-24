@@ -126,3 +126,5 @@ public class Snake : GridItem
         if (aMover == null) aMover = itemSegmento;
     }
 }
+
+//LINEA MODIFICADA AHAHAHA
