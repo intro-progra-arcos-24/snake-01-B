@@ -7,11 +7,12 @@ public class Snake : GridItem
     public float speed = 20f;
     public float speedMultiplier = 1f;
     public SnakeSegment SegmentoPrefab;
-
+    public AudioSource audioComer;
 
     private Vector2Int input;
     private float nextUpdate;
     private SnakeSegment aMover;
+    private bool perdido = false;
 
     
 
@@ -22,6 +23,7 @@ public class Snake : GridItem
 
     private void Update()
     {
+        if (perdido) return;
         // Only allow turning up or down while moving in the x-axis
         if (direction.x != 0f)
         {
@@ -91,10 +93,12 @@ public class Snake : GridItem
         {
             Debug.Log("Hazard");
             gridArenaManager.Perder();
+            perdido = true;
         }
         else if(item.itemEnSlot is Food food)
         {
             Debug.Log("Comida");
+            audioComer.Play();
             //spawnear un segmento de la cola en la posicion actual
             NuevoSegmento(currentGridSlot.indiceGrilla);
             

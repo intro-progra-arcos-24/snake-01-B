@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -172,6 +173,11 @@ public class GridArenaManager : MonoBehaviour
     {
         score += modificar;
         textoComida.text = "Comida: " + score;
+    }
+
+    public void ReiniciarEscena()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 
