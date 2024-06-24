@@ -72,7 +72,7 @@ public class GridArenaManager : MonoBehaviour
         itemEnGrilla.gridArenaManager = this;
     }
 
-    private void CrearComida()
+    public void CrearComida()
     {
         Food itemComida = Instantiate<Food>(
             FoodPrefab,
@@ -156,6 +156,7 @@ public class GridArenaManager : MonoBehaviour
     public void Perder()
     {
         AbrirPantallaFin();
+        Time.timeScale = 0f;
     }
 
     public void AbrirPantallaFin()

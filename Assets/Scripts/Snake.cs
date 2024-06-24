@@ -6,7 +6,7 @@ public class Snake : GridItem
     public Vector2Int direction = Vector2Int.right;
     public float speed = 20f;
     public float speedMultiplier = 1f;
-
+    public Food food;
 
     private Vector2Int input;
     private float nextUpdate;
@@ -15,7 +15,7 @@ public class Snake : GridItem
 
     private void Start()
     {
-        
+        food.GetComponent<Food>();
     }
 
     private void Update()
@@ -77,7 +77,7 @@ public class Snake : GridItem
         else if(item.itemEnSlot is Food)
         {
             Debug.Log("Comida");
-            //food.Reposicionar();
+            gridArenaManager.CrearComida();
         }
     }
 

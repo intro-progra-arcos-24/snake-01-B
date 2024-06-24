@@ -17,6 +17,6 @@ public class Food : GridItem
         // Move the snake in the direction it is facing
         float x = slot.posicionMundo.x;
         float y = slot.posicionMundo.y;
-        transform.position = new Vector2(x, y);
+        transform.position = new Vector2(x, -y);
     }
 }
