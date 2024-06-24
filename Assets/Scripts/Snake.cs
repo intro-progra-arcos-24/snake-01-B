@@ -7,6 +7,7 @@ public class Snake : GridItem
     public float speed = 20f;
     public float speedMultiplier = 1f;
     public SnakeSegment SegmentoPrefab;
+    
 
 
     private Vector2Int input;
@@ -87,13 +88,11 @@ public class Snake : GridItem
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
         }
-        else if(
-            (item.itemEnSlot is Wall) || 
-            (item.itemEnSlot is SnakeSegment)
-            )
+        else if((item.itemEnSlot is Wall) || (item.itemEnSlot is SnakeSegment))
         {
             Debug.Log("Hazard");
             gridArenaManager.Perder();
+
         }
         else if(item.itemEnSlot is Food food)
         {
