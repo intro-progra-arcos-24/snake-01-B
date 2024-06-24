@@ -7,6 +7,7 @@ public class Snake : GridItem
     public float speed = 20f;
     public float speedMultiplier = 1f;
     public SnakeSegment SegmentoPrefab;
+    public AudioSource eatSound;
 
 
     private Vector2Int input;
@@ -108,7 +109,7 @@ public class Snake : GridItem
             float x = transform.position.x + direction.x;
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
-
+            eatSound.Play();
             gridArenaManager.Score(1);
             
             if(gam.score%5 <1)
