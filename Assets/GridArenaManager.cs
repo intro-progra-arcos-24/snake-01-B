@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using TMPro;
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
-    public GameObject canva;
+    public SnakeSegment SegmentoPrefab;
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI textoComida;
+
     public GridSlot[,] grilla;
+
+    int score = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -26,7 +32,7 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = 0; i < alto; i++)
+        for (int i = alto-1; i >= 0; i--)
         {
             for (int j = 0; j < ancho; j++)
             {
@@ -69,6 +75,7 @@ public class GridArenaManager : MonoBehaviour
         slot.itemEnSlot = itemEnGrilla;
         itemEnGrilla.currentGridSlot = slot;
         itemEnGrilla.gridArenaManager = this;
+        itemEnGrilla.SegmentoPrefab = SegmentoPrefab;
     }
 
     private void CrearComida()
@@ -79,7 +86,7 @@ public class GridArenaManager : MonoBehaviour
             Quaternion.identity
             );
         itemComida.gridArenaManager = this;
-        itemComida.Reposicionar();
+        //itemComida.Reposicionar();
     }
 
     public bool CambiarItemEnGrilla(Vector2Int posGrilla, GridItem item)
@@ -90,7 +97,6 @@ public class GridArenaManager : MonoBehaviour
         item.currentGridSlot = gridSlot;
         if(preGridSlot!=null)
             preGridSlot.itemEnSlot = null;
-        
         return true;
     }
 
@@ -110,7 +116,7 @@ public class GridArenaManager : MonoBehaviour
 
     public GridSlot ObtenerSlotVacioRandom()
     {
-        GridSlot slot = null;
+        //GridSlot slot = null;
         
         List<GridSlot> posicionesVacias = new List<GridSlot>();
         for (int i = 0; i < alto; i++)
@@ -159,7 +165,13 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-        canva.SetActive(true);
+        //gameOverScreen.SetActive(true);
+    }
+
+    public void Score(int modificar)
+    {
+        score += modificar;
+        textoComida.text = "Comida: " + score;
     }
 }
 
