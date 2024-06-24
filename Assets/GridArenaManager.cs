@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class GridArenaManager : MonoBehaviour
 
     public GridSlot[,] grilla;
 
-    int score = 0;
+    public int score = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -165,13 +166,17 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-        //gameOverScreen.SetActive(true);
+        gameOverScreen.SetActive(true);
     }
 
     public void Score(int modificar)
     {
         score += modificar;
-        textoComida.text = "Comida: " + score;
+        textoComida.text = "score: " + score;
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("Snake");
     }
 }
 

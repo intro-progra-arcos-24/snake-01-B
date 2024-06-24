@@ -13,17 +13,18 @@ public class Snake : GridItem
     private float nextUpdate;
     private SnakeSegment aMover;
 
-    
+    bool lost;
+    GridArenaManager gam;
 
     private void Start()
     {
-        
+        gam= GameObject.Find("GridArea").GetComponent<GridArenaManager>();
     }
 
     private void Update()
     {
         // Only allow turning up or down while moving in the x-axis
-        if (direction.x != 0f)
+        if (direction.x != 0f && !lost)
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
                 input = Vector2Int.up;
@@ -32,7 +33,7 @@ public class Snake : GridItem
             }
         }
         // Only allow turning left or right while moving in the y-axis
-        else if (direction.y != 0f)
+        else if (direction.y != 0f && !lost)
         {
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
                 input = Vector2Int.right;
@@ -93,13 +94,14 @@ public class Snake : GridItem
             )
         {
             Debug.Log("Hazard");
+            lost=true;
             gridArenaManager.Perder();
         }
         else if(item.itemEnSlot is Food food)
         {
             Debug.Log("Comida");
             //spawnear un segmento de la cola en la posicion actual
-            //NuevoSegmento(currentGridSlot.indiceGrilla);
+            NuevoSegmento(currentGridSlot.indiceGrilla);
             
             //mover al player a la posicion de la comida
             gridArenaManager.CambiarItemEnGrilla(posGrilla, this);
@@ -107,7 +109,14 @@ public class Snake : GridItem
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
 
-            //gridArenaManager.Score(1);
+            gridArenaManager.Score(1);
+            
+            if(gam.score%5 <1)
+            {
+                speed=speed+1;
+            }
+            Debug.Log(speed);
+            
             food.Reposicionar();
         }
         else if (item.itemEnSlot is SnakeSegment segment)
