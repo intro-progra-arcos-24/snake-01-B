@@ -15,7 +15,7 @@ public class Snake : GridItem
 
     private void Start()
     {
-        food.GetComponent<Food>();
+        
     }
 
     private void Update()
@@ -74,10 +74,19 @@ public class Snake : GridItem
             Debug.Log("Wall");
             gridArenaManager.Perder();
         }
-        else if(item.itemEnSlot is Food)
+        else if(item.itemEnSlot is Food food)
         {
             Debug.Log("Comida");
-            gridArenaManager.CrearComida();
+
+            gridArenaManager.CambiarItemEnGrilla(posGrilla, this);
+
+            float x = transform.position.x + direction.x;
+
+            float y = transform.position.y + direction.y;
+
+            transform.position = new Vector2(x, y);
+
+            food.Reposicionar();
         }
     }
 
