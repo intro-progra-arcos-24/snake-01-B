@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using TMPro;
 
@@ -165,7 +166,7 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-        //gameOverScreen.SetActive(true);
+        gameOverScreen.SetActive(true);
     }
 
     public void Score(int modificar)
@@ -173,7 +174,13 @@ public class GridArenaManager : MonoBehaviour
         score += modificar;
         textoComida.text = "Comida: " + score;
     }
+
+    public void ReiniciarEscena()
+    {
+        SceneManager.LoadScene("Snake Nicolas Guzman");
+    }
 }
+
 
 public class GridSlot
 {
