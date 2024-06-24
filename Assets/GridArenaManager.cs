@@ -165,7 +165,7 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
-        gameOverScreen.SetActive(true);
+        //gameOverScreen.SetActive(true);
     }
 
     public void Score(int modificar)

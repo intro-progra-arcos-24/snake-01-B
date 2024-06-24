@@ -87,7 +87,10 @@ public class Snake : GridItem
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
         }
-        else if((item.itemEnSlot is Wall) || (item.itemEnSlot is SnakeSegment))
+        else if(
+            (item.itemEnSlot is Wall) || 
+            (item.itemEnSlot is SnakeSegment)
+            )
         {
             Debug.Log("Hazard");
             gridArenaManager.Perder();
@@ -96,7 +99,7 @@ public class Snake : GridItem
         {
             Debug.Log("Comida");
             //spawnear un segmento de la cola en la posicion actual
-            NuevoSegmento(currentGridSlot.indiceGrilla);
+            //NuevoSegmento(currentGridSlot.indiceGrilla);
             
             //mover al player a la posicion de la comida
             gridArenaManager.CambiarItemEnGrilla(posGrilla, this);
@@ -104,7 +107,7 @@ public class Snake : GridItem
             float y = transform.position.y + direction.y;
             transform.position = new Vector2(x, y);
 
-            gridArenaManager.Score(1);
+            //gridArenaManager.Score(1);
             food.Reposicionar();
         }
         else if (item.itemEnSlot is SnakeSegment segment)
