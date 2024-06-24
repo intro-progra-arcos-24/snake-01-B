@@ -10,12 +10,12 @@ public class Snake : GridItem
 
     private Vector2Int input;
     private float nextUpdate;
-
+  
     
 
     private void Start()
     {
-        
+      
     }
 
     private void Update()
@@ -76,6 +76,8 @@ public class Snake : GridItem
         }
         else if(item.itemEnSlot is Food food)
         {
+            gridArenaManager.Contador();
+            gridArenaManager.AudioComer();
             Debug.Log("Comida");
             food.Reposicionar();
         }

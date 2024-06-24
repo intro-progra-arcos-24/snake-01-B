@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -13,12 +15,16 @@ public class GridArenaManager : MonoBehaviour
     public Snake SnakePrefab;
     public Food FoodPrefab;
     public Canvas perdiste;
-
+    public AudioClip comer;
+    public AudioSource AudioSource;
     public GridSlot[,] grilla;
-    
+    public TextMeshProUGUI contador;
+    private int comidas = 0;
     // Start is called before the first frame update
     void Start()
     {
+      AudioSource = GetComponent<AudioSource>();
+      AudioSource.clip = comer;
         grilla = new GridSlot[ancho, alto];
 
         float puntoPartidaX = transform.position.x - (ancho/2);
@@ -28,7 +34,7 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int i = 0; i < alto; i++)
+        for (int i = alto - 1; i >= 0; i--)
         {
             for (int j = 0; j < ancho; j++)
             {
@@ -167,6 +173,18 @@ public class GridArenaManager : MonoBehaviour
     {
     Time.timeScale = 1f; // Asegura que el tiempo esté corriendo normalmente
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
+    }
+    public void AudioComer()
+    {
+        AudioSource.Play();
+    }
+    public void Contador()
+    {
+        comidas++;
+            if (contador != null)
+            {
+            contador.text = "Comida : " + comidas;
+            }
     }
 }
 
