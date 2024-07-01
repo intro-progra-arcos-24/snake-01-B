@@ -8,6 +8,7 @@ public class Snake : GridItem
     public float speedMultiplier = 1f;
     public Food food;
     public AudioSource audioSource;
+    public AudioSource deathAudioSource;
 
     private Vector2Int input;
     private float nextUpdate;
@@ -74,6 +75,7 @@ public class Snake : GridItem
         {
             Debug.Log("Wall");
             gridArenaManager.Perder();
+            deathAudioSource.Play();
         }
         else if(item.itemEnSlot is Food food)
         {
