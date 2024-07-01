@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GridArenaManager : MonoBehaviour
 {
@@ -11,8 +13,13 @@ public class GridArenaManager : MonoBehaviour
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
-    public GameObject can;
+    public SnakeSegment SegmentoPrefab;
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI textoComida;
+
     public GridSlot[,] grilla;
+
+    public int score = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -26,14 +33,14 @@ public class GridArenaManager : MonoBehaviour
         posicionActualEnGrilla.x = puntoPartidaX;
         posicionActualEnGrilla.y = puntoPartidaY;
 
-        for (int y = 0; y < alto; y++)
+        for (int i = alto-1; i >= 0; i--)
         {
-            for (int x = 0; x < ancho; x++)
+            for (int j = 0; j < ancho; j++)
             {
                 GridSlot slotEnGrilla = new GridSlot();
-                slotEnGrilla.indiceGrilla = new Vector2Int(x,y);
+                slotEnGrilla.indiceGrilla = new Vector2Int(j,i);
                 slotEnGrilla.posicionMundo = new Vector2(posicionActualEnGrilla.x, posicionActualEnGrilla.y);
-                grilla[x, y] = slotEnGrilla;
+                grilla[j, i] = slotEnGrilla;
 
                 posicionActualEnGrilla.x += 1;
             }
@@ -69,6 +76,7 @@ public class GridArenaManager : MonoBehaviour
         slot.itemEnSlot = itemEnGrilla;
         itemEnGrilla.currentGridSlot = slot;
         itemEnGrilla.gridArenaManager = this;
+        itemEnGrilla.SegmentoPrefab = SegmentoPrefab;
     }
 
     private void CrearComida()
@@ -79,7 +87,7 @@ public class GridArenaManager : MonoBehaviour
             Quaternion.identity
             );
         itemComida.gridArenaManager = this;
-        itemComida.Reposicionar();
+        //itemComida.Reposicionar();
     }
 
     public bool CambiarItemEnGrilla(Vector2Int posGrilla, GridItem item)
@@ -90,7 +98,6 @@ public class GridArenaManager : MonoBehaviour
         item.currentGridSlot = gridSlot;
         if(preGridSlot!=null)
             preGridSlot.itemEnSlot = null;
-        
         return true;
     }
 
@@ -110,14 +117,14 @@ public class GridArenaManager : MonoBehaviour
 
     public GridSlot ObtenerSlotVacioRandom()
     {
-        GridSlot slot = null;
+        //GridSlot slot = null;
         
         List<GridSlot> posicionesVacias = new List<GridSlot>();
-        for (int y = 0; y < alto; y++)
+        for (int i = 0; i < alto; i++)
         {
-            for (int x = 0; x < ancho; x++)
+            for (int j = 0; j < ancho; j++)
             {
-                GridSlot currGridSlot = grilla[x, y];
+                GridSlot currGridSlot = grilla[j, i];
                 if(currGridSlot.itemEnSlot == null)
                 {
                     posicionesVacias.Add(currGridSlot);
@@ -132,15 +139,16 @@ public class GridArenaManager : MonoBehaviour
 
     private void CrearMurallas()
     {
-        for (int y = 0; y < alto; y++)
+        for (int i = 0; i < alto; i++)
         {
-            for (int x = 0; x < ancho; x++)
+            for (int j = 0; j < ancho; j++)
             {
-                if (x == 0 || x== (ancho-1) || y==0 || y==(alto-1))
+                if (j == 0 || j== (ancho-1) || i==0 || i==(alto-1))
                 {
-                    GridSlot slot = grilla[x, y];
+                    GridSlot slot = grilla[j, i];
 
-                    GridItem itemEnGrilla = Instantiate<GridItem>(wallPrefab,
+                    GridItem itemEnGrilla = Instantiate<GridItem>(
+                        wallPrefab,
                         new Vector3(slot.posicionMundo.x, slot.posicionMundo.y, 0),
                         Quaternion.identity
                         );
@@ -158,9 +166,17 @@ public class GridArenaManager : MonoBehaviour
 
     public void AbrirPantallaFin()
     {
+        gameOverScreen.SetActive(true);
+    }
 
-        can.SetActive(true);
-
+    public void Score(int modificar)
+    {
+        score += modificar;
+        textoComida.text = "score: " + score;
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("Snake");
     }
 }
 
