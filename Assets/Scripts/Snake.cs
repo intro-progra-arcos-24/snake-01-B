@@ -6,10 +6,14 @@ public class Snake : GridItem
     public Vector2Int direction = Vector2Int.right;
     public float speed = 20f;
     public float speedMultiplier = 1f;
+    public SnakeSegment snakeSegment;
+    public List<SnakeSegment> segments;
 
+    private float nextUpdate;
+    public Vector2 lastPos;
+    public Vector2Int lastGridSlot;
 
     private Vector2Int input;
-    private float nextUpdate;
 
     
 
@@ -44,6 +48,8 @@ public class Snake : GridItem
 
     private void UpdateSnake()
     {
+        if(!gridArenaManager.isAlive) { return; }
+
         // Si no ha pasado tiempo suficiente no hacer nada
         if (Time.time < nextUpdate)
         {
@@ -57,6 +63,8 @@ public class Snake : GridItem
         }
         
         Vector2Int posGrilla = currentGridSlot.indiceGrilla;
+        lastPos = transform.position;
+        lastGridSlot = 
         posGrilla += direction;
 
         GridSlot item = gridArenaManager.ObtenerGrillaPorPosicion(posGrilla);
@@ -77,7 +85,22 @@ public class Snake : GridItem
         {
             item.itemEnSlot.GetComponent<Food>().Reposicionar();
             Debug.Log("Comida");
+            AñadirSegmento();
+        }
+        else if(item.itemEnSlot is SnakeSegment)
+        {
+            gridArenaManager.Perder();
         }
     }
 
+    public void AñadirSegmento()
+    {
+        if(segments.Count == 0)
+        {
+            GridItem newSegment = Instantiate(snakeSegment, lastPos, Quaternion.identity, transform);
+            gridArenaManager.CambiarItemEnGrilla(lastGridSlot, newSegment);
+            newSegment.gridArenaManager = gridArenaManager;
+            segments.Add(snakeSegment);
+        }
+    }
 }

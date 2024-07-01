@@ -101,3 +101,5 @@ MonoBehaviour:
   direction: {x: 1, y: 0}
   speed: 10
   speedMultiplier: 1
+  snakeSegment: {fileID: -4654358246727137030, guid: a20ea67b69b1572478630ab80ef547fd,
+    type: 3}

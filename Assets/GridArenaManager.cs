@@ -8,6 +8,7 @@ public class GridArenaManager : MonoBehaviour
 {
     public int ancho;
     public int alto;
+    public bool isAlive = true;
     public Wall wallPrefab;
     public Snake SnakePrefab;
     public Food FoodPrefab;
@@ -130,7 +131,6 @@ public class GridArenaManager : MonoBehaviour
         return posicionesVacias[pos];
     }
 
-
     private void CrearMurallas()
     {
         for (int i = 0; i < alto; i++)
@@ -156,6 +156,7 @@ public class GridArenaManager : MonoBehaviour
     public void Perder()
     {
         AbrirPantallaFin();
+        isAlive = false;
     }
 
     public void AbrirPantallaFin()
