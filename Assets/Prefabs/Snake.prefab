@@ -101,3 +101,5 @@ MonoBehaviour:
   direction: {x: 1, y: 0}
   speed: 20
   speedMultiplier: 1
+  SegmentoPrefab: {fileID: -4410650921207326664, guid: a20ea67b69b1572478630ab80ef547fd,
+    type: 3}

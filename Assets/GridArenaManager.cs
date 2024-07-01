@@ -19,12 +19,16 @@ public class GridArenaManager : MonoBehaviour
     public AudioSource AudioSource;
     public GridSlot[,] grilla;
     public TextMeshProUGUI contador;
-    private int comidas = 0;
+    public int comidas = 0;
+     public SnakeSegment SegmentoPrefab;
+     
     // Start is called before the first frame update
     void Start()
     {
+      contador.gameObject.SetActive(true);
       AudioSource = GetComponent<AudioSource>();
       AudioSource.clip = comer;
+      
         grilla = new GridSlot[ancho, alto];
 
         float puntoPartidaX = transform.position.x - (ancho/2);
@@ -168,6 +172,7 @@ public class GridArenaManager : MonoBehaviour
     public void AbrirPantallaFin()
     {
     perdiste.gameObject.SetActive(true);
+    
     }
     public void Restart()
     {
@@ -181,11 +186,11 @@ public class GridArenaManager : MonoBehaviour
     public void Contador()
     {
         comidas++;
-            if (contador != null)
-            {
-            contador.text = "Comida : " + comidas;
-            }
+           
+        contador.text = "Comida : " + comidas;
+            
     }
+    
 }
 
 public class GridSlot

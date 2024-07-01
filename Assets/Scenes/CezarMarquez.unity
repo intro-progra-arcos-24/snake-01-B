@@ -508,6 +508,9 @@ MonoBehaviour:
   comer: {fileID: 8300000, guid: 0989c1f3004027f40a2a24c9e5fed828, type: 3}
   AudioSource: {fileID: 864387898}
   contador: {fileID: 1407796598}
+  comidas: 0
+  SegmentoPrefab: {fileID: -4410650921207326664, guid: a20ea67b69b1572478630ab80ef547fd,
+    type: 3}
 --- !u!82 &864387898
 AudioSource:
   m_ObjectHideFlags: 0
