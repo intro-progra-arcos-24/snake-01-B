@@ -20,7 +20,7 @@ public class GridArenaManager : MonoBehaviour
     public GridSlot[,] grilla;
     public TextMeshProUGUI contador;
     public int comidas = 0;
-     public SnakeSegment SegmentoPrefab;
+    public SnakeSegment SegmentoPrefab;
      
     // Start is called before the first frame update
     void Start()
@@ -172,11 +172,10 @@ public class GridArenaManager : MonoBehaviour
     public void AbrirPantallaFin()
     {
     perdiste.gameObject.SetActive(true);
-    
     }
     public void Restart()
     {
-    Time.timeScale = 1f; // Asegura que el tiempo esté corriendo normalmente
+    Time.timeScale = 1f;
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
     }
     public void AudioComer()
