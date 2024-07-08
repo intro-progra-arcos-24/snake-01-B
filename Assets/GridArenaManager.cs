@@ -140,6 +140,7 @@ public class GridArenaManager : MonoBehaviour
 
         return posicionesVacias[pos];
     }
+    //EXPLICAR LA FUNCION REPOSICIONAR Y FUNCION OBTENERVACIORANDOM
 
 
     private void CrearMurallas()

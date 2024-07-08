@@ -20,4 +20,5 @@ public class Food : GridItem
         float y = slot.posicionMundo.y;
         transform.position = new Vector2(x, y);
     }
+    //EXPLICAR LA FUNCION REPOSICIONAR Y FUNCION OBTENERVACIORANDOM
 }

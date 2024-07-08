@@ -91,7 +91,7 @@ public class Snake : GridItem
         else if((item.itemEnSlot is Wall) || (item.itemEnSlot is SnakeSegment))
         {
             Debug.Log("Hazard");
-            lost=true;
+            lost=true;              //ESPLICAR ESTO TAMBIEN
             gridArenaManager.Perder();
         }
         else if(item.itemEnSlot is Food food)
