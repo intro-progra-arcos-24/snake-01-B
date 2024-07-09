@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Snake : GridItem
@@ -9,7 +10,7 @@ public class Snake : GridItem
     public SnakeSegment snakeSegment;
     public List<SnakeSegment> segments;
 
-    private float nextUpdate;
+    public float nextUpdate;
     public Vector2 lastPos;
     public Vector2Int lastGridSlot;
 
@@ -64,7 +65,7 @@ public class Snake : GridItem
         
         Vector2Int posGrilla = currentGridSlot.indiceGrilla;
         lastPos = transform.position;
-        lastGridSlot = 
+        lastGridSlot = posGrilla;
         posGrilla += direction;
 
         GridSlot item = gridArenaManager.ObtenerGrillaPorPosicion(posGrilla);
@@ -91,16 +92,29 @@ public class Snake : GridItem
         {
             gridArenaManager.Perder();
         }
+
+        for(int i = 0; i < segments.Count; i++)
+        {
+            var segment = segments[i];
+            segment.UpdateSegment();
+        }
     }
 
     public void AñadirSegmento()
     {
         if(segments.Count == 0)
         {
-            GridItem newSegment = Instantiate(snakeSegment, lastPos, Quaternion.identity, transform);
+            GridItem newSegment = Instantiate(snakeSegment, lastPos, Quaternion.identity);
             gridArenaManager.CambiarItemEnGrilla(lastGridSlot, newSegment);
-            newSegment.gridArenaManager = gridArenaManager;
-            segments.Add(snakeSegment);
+            SnakeSegment segment = newSegment.gameObject.GetComponent<SnakeSegment>();
+            newSegment.gridArenaManager = gridArenaManager;            
+            segments.Add(segment);
+            segment.firstSegment = true;
+            segment.snake = this;
+        }
+        else
+        {
+            segments[segments.Count - 1].AddSegment();
         }
     }
 }

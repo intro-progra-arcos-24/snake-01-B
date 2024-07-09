@@ -98,3 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridArenaManager: {fileID: 0}
+  snake: {fileID: 0}
+  firstSegment: 0
+  lastPos: {x: 0, y: 0}
+  lastGridSlot: {x: 0, y: 0}
+  snakeSegment: {fileID: 4726879341727194386}
