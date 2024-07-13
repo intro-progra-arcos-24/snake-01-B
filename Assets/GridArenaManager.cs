@@ -123,7 +123,7 @@ public class GridArenaManager : MonoBehaviour
     public GridSlot ObtenerSlotVacioRandom()
     {
         GridSlot slot = null;
-        
+
         List<GridSlot> posicionesVacias = new List<GridSlot>();
         for (int i = 0; i < alto; i++)
         {
@@ -140,7 +140,6 @@ public class GridArenaManager : MonoBehaviour
 
         return posicionesVacias[pos];
     }
-    //EXPLICAR LA FUNCION REPOSICIONAR Y FUNCION OBTENERVACIORANDOM
 
 
     private void CrearMurallas()
@@ -198,5 +197,5 @@ public class GridSlot
     public Vector2Int indiceGrilla;
     public Vector2 posicionMundo;
     public GridItem itemEnSlot;
-
+    
 }
