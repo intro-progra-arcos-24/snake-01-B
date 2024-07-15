@@ -122,7 +122,7 @@ public class GridArenaManager : MonoBehaviour
 
     public GridSlot ObtenerSlotVacioRandom()
     {
-        GridSlot slot = null;
+        //GridSlot slot = null;
 
         List<GridSlot> posicionesVacias = new List<GridSlot>();
         for (int i = 0; i < alto; i++)
